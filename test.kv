@@ -1,0 +1,127 @@
+RootWidget:
+
+<RootWidget>:
+    screen_manager: screen_manager
+    ScreenManager:
+        id: screen_manager
+        current: 'main_menu'
+        pos: root.pos
+        size: root.size
+        MainMenu:
+            screen_manager: root
+            size: root.size
+            pos: root.pos
+        OtherMenu:
+            screen_manager: root
+            size: root.size
+            pos: root.pos
+        Voice:
+            screen_manager: root
+            size: root.size
+            pos: root.pos
+<MainMenu>:
+    screen_manager: self.screen_manager
+    GridLayout:
+        rows:5
+        BoxLayout:
+            Label:
+                text:'Enter Username'
+            TextInput:
+                id:entry_username
+                multiline:False
+                cursor_color: 1, 0, 0, 1
+                hint_text: 'Username'
+                padding_x: [50,50]
+        BoxLayout:
+            Label:
+                text:'Enter Password'
+
+            TextInput:
+                id:entry_password
+                multiline:False
+                cursor_color: 1, 0, 0, 1
+                hint_text: 'Password'
+                padding_x: [50,50]
+                password:True
+        Button:
+            text: 'Login'
+            size_hint: (.4, .2)
+            pos_hint: {'x': .3, 'y': .4}
+            on_press:root.screen_manager.callback(entry_username.text,entry_password.text)
+        Button:
+            text: 'Register'
+            size_hint: (.4, .2)
+            pos_hint: {'x': .3, 'y': .4}
+            on_press: root.screen_manager.set_state(root.name,entry_password.text,entry_username.text)
+
+<OtherMenu>:
+    screen_manager: self.screen_manager
+    FloatLayout:
+    GridLayout:
+        rows:5
+        BoxLayout:
+            Label:
+                text:'Enter Username'
+            TextInput:
+                id:entry_username
+                multiline:False
+
+                cursor_color: 1, 0, 0, 1
+                hint_text: 'Username'
+                padding_x: [50,50]
+        BoxLayout:
+            Label:
+                text:'Enter Password'
+
+            TextInput:
+                id:entry_password
+                multiline:False
+
+                cursor_color: 1, 0, 0, 1
+                hint_text: 'Password'
+                padding_x: [50,50]
+                password:True
+        BoxLayout:
+            Label:
+                text:'Enter Function'
+
+            TextInput:
+                id:entry_function
+                multiline:False
+                cursor_color: 1, 0, 0, 1
+                hint_text: 'Function'
+                padding_x: [50,50]
+
+        Button:
+            text: 'Other'
+            size_hint: (.4, .2)
+            pos_hint: {'x': .3, 'y': .4}
+            on_press: root.screen_manager.set_state(root.name,entry_password,entry_username)
+        Button:
+            text: 'Register'
+            size_hint: (.4, .2)
+            pos_hint: {'x': .3, 'y': .4}
+            on_press: root.screen_manager.register(entry_username.text,entry_password.text,entry_function.text)
+
+<Voice>:
+    screen_manager: self.screen_manager
+    BoxLayout:
+        orientation:'horizontal'
+        BoxLayout:
+            orientation:'vertical'
+            Button:
+                text:'Word'
+                on_press:root.open_office()
+
+            Button:
+                text:'Excel'
+                on_press:root.open_Excel()
+
+
+            Button:
+                text:'PowerPoint'
+                on_press:root.open_powerPoint()
+
+        Button:
+            text:'Microphone'
+            on_press:root.command()
